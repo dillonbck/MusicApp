@@ -373,7 +373,7 @@ public class VelocityViewPager extends ViewGroup implements View.OnClickListener
 
         mTouchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(configuration);
         mMinimumVelocity = (int) (MIN_FLING_VELOCITY * density);
-        mMaximumVelocity = configuration.getScaledMaximumFlingVelocity();
+        mMaximumVelocity = configuration.getScaledMaximumFlingVelocity() / 9;
         mLeftEdge = new EdgeEffectCompat(context);
         mRightEdge = new EdgeEffectCompat(context);
 
