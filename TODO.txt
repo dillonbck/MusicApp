@@ -1,0 +1,23 @@
+Layout Settings dont appear to actually change the layouts
+
+empty settings menu items:
+Album Art 
+Audio Settigns 
+Google play music 
+labels
+folders 
+blacklists
+scrobbling
+licenses & about
+
+Artists' Albums "Play All" button doesnt work
+
+Swipe to next song - should only go to next song, I dont like the multiple scroll on long swipe
+
+Should be able to click on artist name on now playing to go to artist
+Should be able to click on album name on now playing to go to album
+Should be able to click on song name on now playing to go to album containing it
+
+Dont need skip buttons on now playing
+
+Easier to get to queue from now playing - shouldn't have to click extra settings menu
