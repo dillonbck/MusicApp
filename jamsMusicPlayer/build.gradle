@@ -11,12 +11,12 @@ android {
 
         //RenderScript backward compatibility for guassian blurs.
         renderscriptTargetApi 19
-        renderscriptSupportMode true
+        renderscriptSupportModeEnabled true
     }
 
     buildTypes {
         release {
-            runProguard true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
         }
     }
