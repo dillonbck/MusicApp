@@ -114,6 +114,9 @@ public class NowPlayingActivity extends FragmentActivity {
     //Differentiates between a user's scroll input and a programmatic scroll.
     private boolean USER_SCROLL = true;
 
+	// Number of times the user scrolled to the next track
+	private int SCROLL_COUNT = 0;
+
     //HashMap that passes on song information to the "Download from Cloud" dialog.
     private HashMap<String, String> metadata;
     
@@ -1003,33 +1006,43 @@ public class NowPlayingActivity extends FragmentActivity {
 				/* Change tracks ONLY when the user has finished the swiping gesture (swipeVelocity will be zero).
 				 * Also, don't skip tracks if the new pager position is the same as the current mCursor position (indicates 
 				 * that the starting and ending position of the pager is the same).
+				 * The user has to stay on a selected track for about 2 seconds before it will start.
+				 * This prevents the system from loading a track the user does not want (loading is slow).
 				 */
+
 				if (swipeVelocity==0.0f && pagerPosition!=mApp.getService().getCurrentSongIndex()) {
+					Log.d("dab-scroll", "onPageScrolled swipeVelocity=0");
 					if (USER_SCROLL) {
-                        mHandler.removeCallbacks(seekbarUpdateRunnable);
-                        smoothScrollSeekbar(0);
 
-                        mHandler.postDelayed(new Runnable() {
+						SCROLL_COUNT++;
+						Log.d("dab-scroll", "Up ScrollCount: " + SCROLL_COUNT);
 
-                            @Override
-                            public void run() {
-                                mApp.getService().skipToTrack(pagerPosition);
-                            }
+						mHandler.postDelayed(new Runnable() {
 
-                        }, 200);
+							@Override
+							public void run() {
 
+								SCROLL_COUNT--;
+								Log.d("dab-scroll", "Down ScrollCount: " + SCROLL_COUNT);
+
+								if (SCROLL_COUNT == 0) {
+									Log.d("dab-scroll", "ScrollCount == 0");
+									mHandler.removeCallbacks(seekbarUpdateRunnable);
+									smoothScrollSeekbar(0);
+									mApp.getService().skipToTrack(pagerPosition);
+								}
+							}
+
+						}, 2000);
 					}
-
 				}
-				
 			}
-			
 		}
 
 		@Override
 		public void onPageSelected(int newPosition) {
             //TODO Auto-generated method stub.
-
+			Log.d("scrollxxx", "onPageSelected");
 		}
 		
 	};
